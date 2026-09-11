@@ -45,8 +45,6 @@ namespace ProductInventory.Controllers
 
             try
             {
-                // Find product by ID
-                // FirstOrDefaultAsync is async version of FirstOrDefault
                 var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 
                 if (product == null)
@@ -74,8 +72,6 @@ namespace ProductInventory.Controllers
 
         // POST: /Product/Create
         // Receives form data and saves new product
-        // [HttpPost] - only accepts POST requests
-        // [ValidateAntiForgeryToken] - security: prevents CSRF attacks
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Description,Price,Quantity")] Product product)
