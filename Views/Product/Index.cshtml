@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Product>
+
+<h2>Products</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.Price.ToString("C")</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = product.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = product.Id })
+            </td>
+        </tr>
+    }
+</table>
