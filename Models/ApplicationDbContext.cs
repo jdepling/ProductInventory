@@ -55,7 +55,7 @@ public class ApplicationDbContext : DbContext
         }
 
         /// <summary>
-        ///  Add sample data when database is created
+        ///     Add sample data when database is created
         /// </summary>
         /// <param name="modelBuilder"></param>
         private void SeedData(ModelBuilder modelBuilder)
