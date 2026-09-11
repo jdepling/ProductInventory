@@ -15,6 +15,9 @@ namespace ProductInventory.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        ///    Displays a list of all products in the inventory.
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             try
@@ -33,9 +36,11 @@ namespace ProductInventory.Controllers
             }
         }
 
-        // GET: /Product/Details/5
-        // Shows details of a single product
-        // id parameter comes from URL: /Product/Details/{id}
+        /// <summary>
+        ///     Displays the details of a specific product by its ID.
+        ///     GET: /Product/Details/5
+        /// </summary>
+        /// <param name="id"> id parameter comes from URL: /Product/Details/{id}</param>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -63,24 +68,23 @@ namespace ProductInventory.Controllers
 
         // ==================== CREATE OPERATIONS ====================
 
-        // GET: /Product/Create
-        // Shows empty form for creating new product
+        /// <summary>
+        ///    Displays the form to create a new product.
+        ///    GET: /Product/Create
+        /// </summary>
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: /Product/Create
-        // Receives form data and saves new product
+        /// <summary>
+        ///   Receives the form data to create a new product and saves it to the database.
+        ///   POST: /Product/Create
+        /// </summary>
+        /// <param name="product"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Description,Price,Quantity")] Product product)
         {
-            // [Bind] specifies which properties to accept from form
-            // Prevents mass assignment attacks
-
-            // Check if model data is valid
-            // Validates all [Required], [StringLength], etc. attributes
             if (ModelState.IsValid)
             {
                 try
@@ -111,8 +115,11 @@ namespace ProductInventory.Controllers
 
         // ==================== UPDATE OPERATIONS ====================
 
-        // GET: /Product/Edit/5
-        // Shows form pre-filled with product data
+        /// <summary>
+        ///   Displays the form to edit an existing product by its ID.
+        ///     GET: /Product/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,8 +145,12 @@ namespace ProductInventory.Controllers
             }
         }
 
-        // POST: /Product/Edit/5
-        // Receives updated form data and saves changes
+        /// <summary>
+        ///   Receives the updated product data from the form and saves changes to the database.
+        ///   POST: /Product/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="product"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CreatedDate")] Product product)
@@ -192,8 +203,11 @@ namespace ProductInventory.Controllers
 
         // ==================== DELETE OPERATIONS ====================
 
-        // GET: /Product/Delete/5
-        // Shows confirmation page before deleting
+        /// <summary>
+        ///   Displays the confirmation page to delete a specific product by its ID.
+        ///   GET: /Product/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -219,8 +233,11 @@ namespace ProductInventory.Controllers
             }
         }
 
-        // POST: /Product/Delete/5
-        // Confirms deletion and removes product from database
+        /// <summary>
+        ///  Receives the confirmation to delete a product and removes it from the database.
+        ///  POST: /Product/Delete/5
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

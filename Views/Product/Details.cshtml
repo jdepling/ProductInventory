@@ -4,6 +4,7 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Quantity</th>
         <th>Price</th>
         <th>Status</th>
     </tr>
@@ -11,6 +12,7 @@
         <tr>
             <td class="col-md-2">@Model.Name</td>
             <td class="col-md-2">@Model.Description</td>
+            <td class="col-md-2">@Model.Quantity</td>
             <td class="col-md-2">@Model.Price.ToString("C")</td>
             <td class="col-md-2">
                 @if (Model.IsInStock)
