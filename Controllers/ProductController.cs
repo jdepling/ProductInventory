@@ -153,7 +153,7 @@ namespace ProductInventory.Controllers
         /// <param name="product"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CreatedDate")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity")] Product product)
         {
             if (id != product.Id)
             {

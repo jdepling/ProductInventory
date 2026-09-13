@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<Product>
 
 <h2 class="display-6 mb-1">Products</h2>
-<br />
 <p class="text-muted"> Current Product Inventory </p>
+<br />
+
+<a asp-controller="Product" asp-action="Create" class="btn btn-primary"> Add Product </a>
+<br />
 <br />
 
 <table class="table table-striped table-hover">
