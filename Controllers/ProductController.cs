@@ -29,7 +29,7 @@ namespace ProductInventory.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error loading products");
-                return View(new List<Product>());
+                return View(new List<ProductViewModel>());
             }
         }
 
@@ -72,7 +72,7 @@ namespace ProductInventory.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Price,Quantity")] Product product)
+        public async Task<IActionResult> Create([Bind("Name,Description,Price,Quantity")] ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
@@ -125,7 +125,7 @@ namespace ProductInventory.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity")] ProductViewModel product)
         {
             if (id != product.Id)
                 return BadRequest();

@@ -46,9 +46,6 @@ public class ApplicationDbContext : DbContext
 
                 entity.Property(e => e.CreatedDate)
                     .HasDefaultValue(DateTime.Now);
-
-                // Ignore computed property (not stored in database)
-                entity.Ignore(e => e.IsInStock);
             });
 
             SeedData(modelBuilder);

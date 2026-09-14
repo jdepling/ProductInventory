@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProductInventory.Mappings;
 using ProductInventory.Models;
 using ProductInventory.Services;
 
@@ -19,6 +20,10 @@ namespace ProductInventory
             );
 
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<ProductProfile>();
+            });
 
             var app = builder.Build();
 

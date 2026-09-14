@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using ProductInventory.Controllers;
 using ProductInventory.Models;
 
@@ -6,57 +8,71 @@ namespace ProductInventory.Services
 {
     public interface IProductService
     {
-        Task AddProduct(Product product);
-        Task UpdateProduct(Product product);
-        Task<Product?> GetProductByIdAsync(int? id);
-        Task<List<Product>> ListAllProductsAsync();
-        Task DeleteProductAsync(Product product);
+        Task AddProduct(ProductViewModel product);
+        Task UpdateProduct(ProductViewModel product);
+        Task<ProductViewModel?> GetProductByIdAsync(int? id);
+        Task<List<ProductViewModel>> ListAllProductsAsync();
+        Task DeleteProductAsync(ProductViewModel product);
     }
 
     public class ProductService : IProductService
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ProductController> _logger;
+        private readonly IMapper _mapper;
 
-        public ProductService(ApplicationDbContext context, ILogger<ProductController> logger)
+        public ProductService(ApplicationDbContext context, ILogger<ProductController> logger, IMapper mapper)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger  = logger  ?? throw new ArgumentNullException(nameof(logger));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task AddProduct(Product product)
+        public async Task AddProduct(ProductViewModel product)
         {
-            product.CreatedDate = DateTime.Now;
-            _context.Products.Add(product);
+            var productEntity = _mapper.Map<Product>(product);
+            productEntity.CreatedDate = DateTime.Now;
+            _context.Products.Add(productEntity);
             await _context.SaveChangesAsync();
 
             _logger.LogInformation($"Product created: {product.Name}");
         }
 
-        public async Task DeleteProductAsync(Product product)
+        public async Task DeleteProductAsync(ProductViewModel product)
         {
-            _context.Products.Remove(product);
+            var productEntity = _mapper.Map<Product>(product);
+            _context.Products.Remove(productEntity);
             await _context.SaveChangesAsync();
 
             _logger.LogInformation($"Product deleted: {product.Name}");
         }
 
-        public async Task<Product?> GetProductByIdAsync(int? id)
+        public async Task<ProductViewModel?> GetProductByIdAsync(int? id)
         {
-            return await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            return product != null ? _mapper.Map<ProductViewModel>(product) : null;
         }
 
-        public async Task<List<Product>> ListAllProductsAsync()
+        public async Task<List<ProductViewModel>> ListAllProductsAsync()
         {
             _logger.LogInformation("Getting all products");
-            return await _context.Products.ToListAsync();
+
+            var products = await _context.Products
+                .AsNoTracking()
+                .ToListAsync();
+
+            return products.Select(p => _mapper.Map<ProductViewModel>(p)).ToList();
         }
 
-        public async Task UpdateProduct(Product product)
+        public async Task UpdateProduct(ProductViewModel product)
         {
-            product.ModifiedDate = DateTime.Now;
+            var productEntity = _mapper.Map<Product>(product);
+            productEntity.ModifiedDate = DateTime.Now;
 
-            _context.Update(product);
+            _context.Update(productEntity);
 
             await _context.SaveChangesAsync();
 
