@@ -23,16 +23,12 @@ namespace ProductInventory.Controllers
         {
             try
             {
-                _logger.LogInformation("Getting all products");
-
                 var products = await _productService.ListAllProductsAsync();
-
                 return View(products);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error loading products");
-                ViewBag.Error = "Error loading products: " + ex.Message;
                 return View(new List<Product>());
             }
         }

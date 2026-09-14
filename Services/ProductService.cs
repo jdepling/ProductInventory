@@ -48,6 +48,7 @@ namespace ProductInventory.Services
 
         public async Task<List<Product>> ListAllProductsAsync()
         {
+            _logger.LogInformation("Getting all products");
             return await _context.Products.ToListAsync();
         }
 
