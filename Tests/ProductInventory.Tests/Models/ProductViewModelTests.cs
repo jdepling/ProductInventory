@@ -18,5 +18,11 @@ namespace ProductInventory.Tests.Models
             // Assert
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void Bad()
+        {
+            Assert.Fail("This test is intentionally failing to demonstrate a failing test case.");
+        }
     }
 }
