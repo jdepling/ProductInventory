@@ -66,6 +66,7 @@ namespace ProductInventory.Controllers
         {
             return View();
         }
+
         /// <summary>
         ///   Receives the form data to create a new product and saves it to the database.
         ///   POST: /Product/Create

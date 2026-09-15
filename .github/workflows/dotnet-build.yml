@@ -19,7 +19,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore
+         run: dotnet restore ProductInventory.slnx
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build ProductInventory.slnx --configuration Release --no-restore
+
+        - name: Test
+        run: dotnet test ProductInventory.slnx --configuration Release --no-build

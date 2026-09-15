@@ -18,6 +18,16 @@ The application demonstrates basic CRUD operations for managing products, includ
 * SQL Server
 * HTML/CSS
 
+## CI
+
+This project uses GitHub Actions to automatically:
+
+- Restore NuGet packages
+- Build the application
+- Run unit tests
+
+The workflow runs whenever changes are pushed to `main`.
+
 ## Purpose
 
 This project was created as a small example of building a traditional MVC web application with a clean separation between controllers, models, views, and data access.
