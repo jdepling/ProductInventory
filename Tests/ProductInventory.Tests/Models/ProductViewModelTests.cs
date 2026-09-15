@@ -38,6 +38,23 @@ namespace ProductInventory.Tests.Models
             Assert.Equal("Quantity cannot be negative", errorMessageForQuantity);
         }
 
+        [Fact]
+        public void Name_EmptyName_FailsValidation()
+        {
+            // Arrange
+            var product = new ProductViewModel { Name = "" };
+
+            // Act
+            var result = ValidateModel(product);
+            var errorMessageForName = result
+                .Where(r => r.MemberNames.Contains(nameof(ProductViewModel.Name)))
+                .Select(r => r.ErrorMessage)
+                .FirstOrDefault();
+
+            // Assert
+            Assert.Equal("Product name is required", errorMessageForName);
+        }
+
         private IList<ValidationResult> ValidateModel(object model)
         {
             var validationResults = new List<ValidationResult>();
